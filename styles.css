@@ -1,0 +1,1462 @@
+/* =========================================
+   Revanth’s Atlas — Design System
+   ========================================= */
+
+:root {
+  --sky-deep: #070b18;
+  --sky-base: #0b1226;
+  --sky-indigo: #141c38;
+  --text-bright: #eaf2ff;
+  --text-body: #c9d6e8;
+  --text-muted: #8fa3bd;
+  --cyan: #67e8f9;
+  --violet: #a78bfa;
+  --amber: #fbbf24;
+  --saffron: #f6ad55;
+}
+
+/* =========================================
+   Minimal navbar
+   ========================================= */
+
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  background: rgba(7, 11, 24, 0.55);
+  border-bottom: 1px solid rgba(103, 232, 249, 0.14);
+  backdrop-filter: blur(10px);
+}
+
+.nav-brand {
+  color: var(--text-bright);
+  font-family: "Fraunces", serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-brand:hover,
+.nav-brand:focus-visible {
+  color: var(--cyan);
+}
+
+.nav-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  padding: 0.65rem;
+  color: var(--text-bright);
+  background: transparent;
+  border: 1px solid rgba(103, 232, 249, 0.3);
+  border-radius: 0.65rem;
+  cursor: pointer;
+}
+
+.nav-toggle-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  margin-bottom: 5px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+.nav-toggle-line:last-child {
+  margin-bottom: 0;
+}
+
+.nav-menu ul {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-menu a {
+  display: inline-block;
+  padding: 0.55rem 0.85rem;
+  color: var(--text-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.nav-menu a:hover,
+.nav-menu a:focus-visible {
+  color: var(--text-bright);
+  background: rgba(103, 232, 249, 0.12);
+}
+
+.nav-menu a:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.nav-professional {
+  color: var(--cyan);
+  border: 1px solid rgba(103, 232, 249, 0.35);
+}
+
+.nav-professional:hover,
+.nav-professional:focus-visible {
+  color: var(--text-bright);
+  border-color: var(--cyan);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 819px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 68px;
+    left: 0.75rem;
+    right: 0.75rem;
+    z-index: 29;
+    padding: 0.75rem;
+    border: 1px solid rgba(103, 232, 249, 0.2);
+    border-radius: 1rem;
+    background: rgba(7, 11, 24, 0.94);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  }
+
+  .nav-menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-menu ul {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+  }
+
+  .nav-menu a {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-menu {
+    transition: none;
+  }
+
+  .nav-menu a,
+  .nav-brand,
+  .nav-toggle {
+    transition: none;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text-body);
+  font-family: "Inter", system-ui, sans-serif;
+  line-height: 1.65;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(167, 139, 250, 0.16), transparent 38%),
+    radial-gradient(circle at 82% 32%, rgba(103, 232, 249, 0.12), transparent 40%),
+    radial-gradient(circle at 24% 68%, rgba(246, 173, 85, 0.10), transparent 42%),
+    linear-gradient(180deg, var(--sky-deep), var(--sky-base) 45%, var(--sky-indigo));
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* =========================================
+   Continuous Atlas route
+   ========================================= */
+
+.atlas-route {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.34;
+}
+
+.atlas-route-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.atlas-route-line {
+  fill: none;
+  stroke: rgba(103, 232, 249, 0.55);
+  stroke-width: 0.28;
+  stroke-linecap: round;
+  stroke-dasharray: 0.8 1.4;
+  stroke-dashoffset: 0;
+  animation: atlas-route-flow 28s linear infinite;
+}
+
+@keyframes atlas-route-flow {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+
+/* =========================================
+   Seamless sky background
+   ========================================= */
+
+.sky {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.nebula {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+}
+
+.nebula-violet {
+  width: 55vw;
+  height: 55vw;
+  top: -12vw;
+  left: -12vw;
+  background: radial-gradient(
+    circle,
+    rgba(167, 139, 250, 0.35),
+    transparent 70%
+  );
+}
+
+.nebula-cyan {
+  width: 48vw;
+  height: 48vw;
+  top: 35%;
+  right: -15vw;
+  background: radial-gradient(
+    circle,
+    rgba(103, 232, 249, 0.25),
+    transparent 70%
+  );
+}
+
+.nebula-amber {
+  width: 52vw;
+  height: 52vw;
+  bottom: -15vw;
+  left: 10vw;
+  background: radial-gradient(
+    circle,
+    rgba(246, 173, 85, 0.20),
+    transparent 70%
+  );
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 32% 42%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 58% 22%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 74% 58%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 34%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 22% 76%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 48% 88%, #eaf2ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 68% 78%, #eaf2ff 50%, transparent 51%);
+  opacity: 0.55;
+}
+
+/* =========================================
+   Layout
+   ========================================= */
+
+main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 9rem 1.25rem 6rem;
+}
+
+section {
+  min-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 0;
+}
+
+/* =========================================
+   Typography
+   ========================================= */
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--cyan);
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  margin: 0 0 1rem;
+  color: var(--text-bright);
+  font-family: "Fraunces", serif;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 7vw, 5rem);
+}
+
+h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.intro {
+  max-width: 42ch;
+  margin: 0 0 1.5rem;
+  color: var(--text-bright);
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+}
+
+.welcome,
+.territory p,
+.coordinates p,
+.connect p {
+  max-width: 62ch;
+  margin: 0;
+}
+
+/* =========================================
+   Arrival
+   ========================================= */
+
+.route-link {
+  display: inline-block;
+  margin-top: 2rem;
+  color: var(--cyan);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(103, 232, 249, 0.45);
+}
+
+.route-link:hover,
+.route-link:focus-visible {
+  color: var(--text-bright);
+  border-bottom-color: var(--text-bright);
+}
+
+/* =========================================
+   Constellation route controls
+   ========================================= */
+
+.route-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+.previous-route,
+.next-route {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--cyan);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(103, 232, 249, 0.35);
+  transition: color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.previous-route:hover,
+.previous-route:focus-visible,
+.next-route:hover,
+.next-route:focus-visible {
+  color: var(--text-bright);
+  border-bottom-color: var(--text-bright);
+}
+
+.previous-route:hover,
+.previous-route:focus-visible {
+  transform: translateX(-4px);
+}
+
+.next-route:hover,
+.next-route:focus-visible {
+  transform: translateX(4px);
+}
+
+.previous-route:focus-visible,
+.next-route:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+.previous-route span,
+.next-route span {
+  font-size: 1.1rem;
+}
+
+/* =========================================
+   Territories
+   ========================================= */
+
+.territory {
+  position: relative;
+}
+
+.territory-inner {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.territory-inner-reverse {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.constellation {
+  width: min(320px, 78vw);
+  height: auto;
+  overflow: visible;
+}
+
+.route-line {
+  fill: none;
+  stroke: rgba(103, 232, 249, 0.75);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+  transition: stroke-dashoffset 1.8s ease;
+}
+
+.star {
+  fill: #eaf2ff;
+  opacity: 0.75;
+}
+
+.star-main {
+  fill: var(--cyan);
+  filter: drop-shadow(0 0 8px rgba(103, 232, 249, 0.8));
+}
+
+.territory-number {
+  margin: 0 0 0.5rem;
+  color: var(--cyan);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.territory-intro {
+  max-width: 46ch;
+  margin: 0 0 1.5rem;
+  color: var(--text-bright);
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+}
+
+.territory-detail {
+  max-width: 62ch;
+  margin: 0 0 1.25rem;
+}
+
+.future-route {
+  max-width: 62ch;
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.future-route strong {
+  color: var(--text-bright);
+}
+
+/* =========================================
+   Territory 1: Reading & Stories
+   ========================================= */
+
+.territory-reading::before {
+  content: "";
+  position: absolute;
+  top: 12%;
+  left: 6%;
+  width: min(480px, 42vw);
+  height: min(400px, 55vh);
+  z-index: -1;
+  background: radial-gradient(
+    closest-side,
+    rgba(167, 139, 250, 0.16) 0%,
+    rgba(167, 139, 250, 0.08) 45%,
+    transparent 100%
+  );
+  filter: blur(42px);
+  pointer-events: none;
+}
+
+.territory-reading .territory-number {
+  color: var(--violet);
+}
+
+.territory-reading .star-main {
+  fill: var(--violet);
+  filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.8));
+}
+
+.territory-reading.is-visible .route-line {
+  stroke-dashoffset: 0;
+}
+
+/* =========================================
+   Territory 2: Games & Thinking
+   ========================================= */
+
+.territory-games::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  right: 6%;
+  width: min(480px, 42vw);
+  height: min(400px, 55vh);
+  z-index: -1;
+  background: radial-gradient(
+    closest-side,
+    rgba(103, 232, 249, 0.13) 0%,
+    rgba(103, 232, 249, 0.06) 45%,
+    transparent 100%
+  );
+  filter: blur(42px);
+  pointer-events: none;
+}
+
+.territory-games .territory-number {
+  color: var(--cyan);
+}
+
+.territory-games .star-main {
+  fill: var(--cyan);
+  filter: drop-shadow(0 0 8px rgba(103, 232, 249, 0.8));
+}
+
+.territory-games.is-visible .route-line {
+  stroke-dashoffset: 0;
+}
+
+/* =========================================
+   Territory 3: Learning & Data
+   ========================================= */
+
+.territory-learning::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 6%;
+  width: min(480px, 42vw);
+  height: min(400px, 55vh);
+  z-index: -1;
+  background: radial-gradient(
+    closest-side,
+    rgba(103, 232, 249, 0.14) 0%,
+    rgba(103, 232, 249, 0.06) 45%,
+    transparent 100%
+  );
+  filter: blur(42px);
+  pointer-events: none;
+}
+
+.territory-learning .territory-number {
+  color: var(--cyan);
+}
+
+.territory-learning .star-main {
+  fill: var(--cyan);
+  filter: drop-shadow(0 0 8px rgba(103, 232, 249, 0.8));
+}
+
+.territory-learning.is-visible .route-line {
+  stroke-dashoffset: 0;
+}
+
+/* =========================================
+   Territory 4: Making & Building
+   ========================================= */
+
+.territory-making::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  right: 6%;
+  width: min(480px, 42vw);
+  height: min(400px, 55vh);
+  z-index: -1;
+  background: radial-gradient(
+    closest-side,
+    rgba(251, 191, 36, 0.12) 0%,
+    rgba(251, 191, 36, 0.05) 45%,
+    transparent 100%
+  );
+  filter: blur(42px);
+  pointer-events: none;
+}
+
+.territory-making .territory-number {
+  color: var(--amber);
+}
+
+.territory-making .star-main {
+  fill: var(--amber);
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8));
+}
+
+.territory-making.is-visible .route-line {
+  stroke-dashoffset: 0;
+}
+
+.experiment-list {
+  max-width: 62ch;
+  margin: 0 0 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.experiment-list li {
+  margin-bottom: 1rem;
+}
+
+.experiment-list strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--text-bright);
+  font-family: "Fraunces", serif;
+  font-size: 1.05rem;
+}
+
+.experiment-list span {
+  display: block;
+  color: var(--text-body);
+}
+
+.coming-soon {
+  max-width: 62ch;
+  margin: 0 0 1.25rem;
+  color: var(--amber);
+  font-weight: 600;
+}
+
+/* =========================================
+   Territory 5: Food & Well-being
+   ========================================= */
+
+.territory-food::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 6%;
+  width: min(480px, 42vw);
+  height: min(400px, 55vh);
+  z-index: -1;
+  background: radial-gradient(
+    closest-side,
+    rgba(246, 173, 85, 0.14) 0%,
+    rgba(246, 173, 85, 0.06) 45%,
+    transparent 100%
+  );
+  filter: blur(42px);
+  pointer-events: none;
+}
+
+.territory-food .territory-number {
+  color: var(--saffron);
+}
+
+.territory-food .star-main {
+  fill: var(--saffron);
+  filter: drop-shadow(0 0 8px rgba(246, 173, 85, 0.8));
+}
+
+.territory-food.is-visible .route-line {
+  stroke-dashoffset: 0;
+}
+
+/* =========================================
+   Current Coordinates
+   ========================================= */
+
+.coordinates {
+  position: relative;
+}
+
+.coordinates::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(560px, 48vw);
+  height: min(420px, 55vh);
+  z-index: -1;
+  background: radial-gradient(
+    closest-side,
+    rgba(103, 232, 249, 0.12) 0%,
+    rgba(103, 232, 249, 0.05) 45%,
+    transparent 100%
+  );
+  filter: blur(42px);
+  pointer-events: none;
+}
+
+.coordinates-inner {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.coordinates-constellation {
+  width: min(320px, 78vw);
+  height: auto;
+  overflow: visible;
+}
+
+.coordinates .route-line {
+  stroke: rgba(103, 232, 249, 0.75);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+  transition: stroke-dashoffset 1.8s ease;
+}
+
+.coordinates .star-main {
+  fill: var(--cyan);
+  filter: drop-shadow(0 0 10px rgba(103, 232, 249, 0.8));
+}
+
+.coordinates.is-visible .route-line {
+  stroke-dashoffset: 0;
+}
+
+.coordinates-text {
+  max-width: 65ch;
+}
+
+.coordinates-list {
+  margin: 0;
+  padding: 0;
+}
+
+.coordinate {
+  margin-bottom: 1.25rem;
+}
+
+.coordinate dt {
+  margin-bottom: 0.25rem;
+  color: var(--cyan);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.coordinate dd {
+  margin: 0;
+  color: var(--text-bright);
+}
+
+/* =========================================
+   Let’s Connect
+   ========================================= */
+
+.connect-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.connect-links a {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  color: var(--text-bright);
+  text-decoration: none;
+  border: 1px solid rgba(103, 232, 249, 0.35);
+  border-radius: 999px;
+  background: rgba(7, 11, 24, 0.55);
+  transition: border-color 0.25s ease, color 0.25s ease;
+}
+
+.connect-links a:hover,
+.connect-links a:focus-visible {
+  color: var(--cyan);
+  border-color: var(--cyan);
+}
+
+/* =========================================
+   Wormhole Gateway
+   ========================================= */
+
+.wormhole-gateway {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 6rem 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.wormhole-gateway::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      70% 70% at 50% 50%,
+      rgba(103, 232, 249, 0.07) 0%,
+      rgba(103, 232, 249, 0.03) 40%,
+      transparent 78%
+    ),
+    radial-gradient(
+      70% 70% at 50% 50%,
+      rgba(167, 139, 250, 0.07) 0%,
+      rgba(167, 139, 250, 0.03) 45%,
+      transparent 82%
+    );
+  pointer-events: none;
+}
+
+.wormhole-portal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(720px, 94vw);
+  aspect-ratio: 1 / 1;
+  color: var(--text-bright);
+  text-decoration: none;
+  border-radius: 50%;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.wormhole-portal:hover {
+  transform: scale(1.03);
+  filter: brightness(1.07);
+}
+
+.wormhole-portal:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 12px;
+}
+
+.wormhole-visual {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 50%;
+  mask: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 58%,
+    rgba(0, 0, 0, 0.45) 70%,
+    rgba(0, 0, 0, 0.12) 80%,
+    transparent 88%
+  );
+  -webkit-mask: radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 58%,
+    rgba(0, 0, 0, 0.45) 70%,
+    rgba(0, 0, 0, 0.12) 80%,
+    transparent 88%
+  );
+}
+
+/* Deep tunnel base: unifies all rings into one continuous vortex */
+
+.wormhole-tunnel {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(1, 3, 10, 0.99) 0%,
+      rgba(4, 8, 20, 0.94) 20%,
+      rgba(9, 18, 42, 0.74) 40%,
+      rgba(103, 232, 249, 0.07) 60%,
+      rgba(167, 139, 250, 0.07) 74%,
+      rgba(246, 173, 85, 0.04) 85%,
+      transparent 96%
+    );
+  box-shadow:
+    inset 0 0 110px rgba(103, 232, 249, 0.08),
+    inset 0 0 190px rgba(167, 139, 250, 0.07);
+}
+
+.wormhole-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.82;
+}
+
+/* Outermost ring: melts and fades into the Atlas sky */
+
+.ring-one {
+  inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    rgba(103, 232, 249, 0.00),
+    rgba(103, 232, 249, 0.16),
+    rgba(167, 139, 250, 0.10),
+    rgba(246, 173, 85, 0.05),
+    rgba(103, 232, 249, 0.00)
+  );
+  mask: radial-gradient(
+    circle,
+    transparent 44%,
+    rgba(0, 0, 0, 0.08) 56%,
+    rgba(0, 0, 0, 0.22) 68%,
+    rgba(0, 0, 0, 0.06) 80%,
+    transparent 94%
+  );
+  animation: wormhole-spin 38s linear infinite;
+}
+
+/* Inner rings: colours melt into the next ring */
+
+.ring-two {
+  inset: 7%;
+  background: conic-gradient(
+    from 110deg,
+    rgba(167, 139, 250, 0.00),
+    rgba(167, 139, 250, 0.28),
+    rgba(103, 232, 249, 0.18),
+    rgba(246, 173, 85, 0.07),
+    rgba(167, 139, 250, 0.00)
+  );
+  mask: radial-gradient(
+    circle,
+    transparent 38%,
+    rgba(0, 0, 0, 0.08) 50%,
+    rgba(0, 0, 0, 0.42) 64%,
+    rgba(0, 0, 0, 0.08) 79%,
+    transparent 96%
+  );
+  animation: wormhole-spin 50s linear infinite reverse;
+}
+
+.ring-three {
+  inset: 16%;
+  background: conic-gradient(
+    from 230deg,
+    rgba(103, 232, 249, 0.00),
+    rgba(103, 232, 249, 0.22),
+    rgba(167, 139, 250, 0.15),
+    rgba(246, 173, 85, 0.05),
+    rgba(103, 232, 249, 0.00)
+  );
+  mask: radial-gradient(
+    circle,
+    transparent 29%,
+    rgba(0, 0, 0, 0.06) 42%,
+    rgba(0, 0, 0, 0.36) 57%,
+    rgba(0, 0, 0, 0.07) 74%,
+    transparent 94%
+  );
+  animation: wormhole-spin 62s linear infinite;
+}
+
+.ring-four {
+  inset: 25%;
+  background: conic-gradient(
+    from 30deg,
+    rgba(246, 173, 85, 0.00),
+    rgba(246, 173, 85, 0.15),
+    rgba(103, 232, 249, 0.12),
+    rgba(167, 139, 250, 0.08),
+    rgba(246, 173, 85, 0.00)
+  );
+  mask: radial-gradient(
+    circle,
+    transparent 21%,
+    rgba(0, 0, 0, 0.05) 34%,
+    rgba(0, 0, 0, 0.30) 50%,
+    rgba(0, 0, 0, 0.06) 69%,
+    transparent 92%
+  );
+  animation: wormhole-spin 74s linear infinite reverse;
+}
+
+.ring-five {
+  inset: 34%;
+  background: conic-gradient(
+    from 300deg,
+    rgba(167, 139, 250, 0.00),
+    rgba(167, 139, 250, 0.12),
+    rgba(103, 232, 249, 0.08),
+    rgba(246, 173, 85, 0.04),
+    rgba(167, 139, 250, 0.00)
+  );
+  mask: radial-gradient(
+    circle,
+    transparent 15%,
+    rgba(0, 0, 0, 0.04) 28%,
+    rgba(0, 0, 0, 0.25) 44%,
+    rgba(0, 0, 0, 0.05) 63%,
+    transparent 90%
+  );
+  animation: wormhole-spin 86s linear infinite;
+}
+
+.wormhole-centre {
+  position: absolute;
+  width: 30%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      #000207 0%,
+      #02050f 45%,
+      rgba(103, 232, 249, 0.08) 68%,
+      rgba(167, 139, 250, 0.06) 84%,
+      transparent 96%
+    );
+  box-shadow:
+    inset 0 0 70px rgba(103, 232, 249, 0.10),
+    inset 0 0 150px rgba(167, 139, 250, 0.08),
+    0 0 90px rgba(103, 232, 249, 0.12),
+    0 0 190px rgba(167, 139, 250, 0.08);
+}
+
+.wormhole-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 36ch;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Small supporting lines: subtle cosmic gradient */
+
+.wormhole-small {
+  color: transparent;
+  background: linear-gradient(
+    100deg,
+    rgba(165, 243, 252, 0.88) 0%,
+    rgba(103, 232, 249, 0.82) 28%,
+    rgba(167, 139, 250, 0.78) 58%,
+    rgba(246, 173, 85, 0.62) 84%,
+    rgba(251, 191, 36, 0.58) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: clamp(0.48rem, 1vw, 0.6rem);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  line-height: 1.7;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 18px rgba(7, 11, 24, 0.98),
+    0 0 36px rgba(7, 11, 24, 0.82);
+}
+
+/* Large main lines: attractive aurora gradient */
+
+.wormhole-large {
+  color: transparent;
+  background: linear-gradient(
+    100deg,
+    #a5f3fc 0%,
+    #67e8f9 25%,
+    #a78bfa 55%,
+    #f6ad55 85%,
+    #fbbf24 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.4rem, 4.2vw, 2.45rem);
+  font-weight: 600;
+  line-height: 1.08;
+  text-shadow:
+    0 0 28px rgba(7, 11, 24, 0.92),
+    0 0 58px rgba(7, 11, 24, 0.65);
+}
+
+@keyframes wormhole-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================
+   Footer
+   ========================================= */
+
+footer {
+  position: relative;
+  padding: 5rem 1.25rem 6rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* =========================================
+   Back to top
+   ========================================= */
+
+.back-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  color: var(--text-bright);
+  text-decoration: none;
+  border: 1px solid rgba(103, 232, 249, 0.35);
+  border-radius: 50%;
+  background: rgba(7, 11, 24, 0.72);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  background: rgba(7, 11, 24, 0.88);
+  transform: translateY(-3px);
+}
+
+.back-to-top:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+.back-to-top-icon {
+  display: grid;
+  place-items: center;
+}
+
+.back-to-top-tooltip {
+  position: absolute;
+  right: 64px;
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  padding: 0.45rem 0.75rem;
+  color: var(--text-bright);
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  border: 1px solid rgba(103, 232, 249, 0.35);
+  border-radius: 999px;
+  background: rgba(7, 11, 24, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+}
+
+.back-to-top:hover .back-to-top-tooltip,
+.back-to-top:focus-visible .back-to-top-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* =========================================
+   Scroll reveal
+   ========================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================================
+   Responsive layout
+   ========================================= */
+
+@media (min-width: 820px) {
+  .territory-inner {
+    grid-template-columns: minmax(220px, 340px) 1fr;
+    gap: 4rem;
+  }
+
+  .territory-inner-reverse {
+    grid-template-columns: 1fr minmax(220px, 340px);
+    gap: 4rem;
+  }
+
+  .coordinates-inner {
+    grid-template-columns: minmax(220px, 340px) 1fr;
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 819px) {
+  main {
+    padding-top: 6rem;
+  }
+
+  section {
+    min-height: 78vh;
+  }
+
+  .constellation {
+    margin: 0 auto;
+  }
+
+  .territory-inner-reverse .constellation {
+    order: -1;
+  }
+
+  .nebula {
+    filter: blur(28px);
+    opacity: 0.18;
+  }
+
+  .nebula-amber {
+    display: none;
+  }
+
+  .atlas-route-line {
+    animation: none;
+    stroke-dasharray: none;
+  }
+
+  .ring-three,
+  .ring-four,
+  .ring-five {
+    display: none;
+  }
+
+  .ring-one {
+    opacity: 0.72;
+  }
+
+  .ring-two {
+    opacity: 0.58;
+  }
+
+  .wormhole-tunnel {
+    background:
+      radial-gradient(
+        circle at 50% 50%,
+        rgba(1, 3, 10, 0.99) 0%,
+        rgba(4, 8, 20, 0.94) 22%,
+        rgba(9, 18, 42, 0.68) 42%,
+        rgba(103, 232, 249, 0.05) 62%,
+        rgba(167, 139, 250, 0.05) 76%,
+        rgba(246, 173, 85, 0.03) 86%,
+        transparent 98%
+      );
+    box-shadow:
+      inset 0 0 45px rgba(103, 232, 249, 0.06),
+      inset 0 0 85px rgba(167, 139, 250, 0.05);
+  }
+
+  .wormhole-mist {
+    inset: 0;
+    background:
+      radial-gradient(
+        80% 80% at 50% 50%,
+        rgba(1, 3, 10, 0.34) 0%,
+        rgba(4, 8, 20, 0.18) 30%,
+        rgba(9, 18, 42, 0.08) 46%,
+        rgba(103, 232, 249, 0.03) 58%,
+        rgba(167, 139, 250, 0.02) 66%,
+        transparent 78%
+      );
+    filter: blur(18px);
+  }
+
+  .reveal {
+    transform: none;
+    transition: opacity 0.35s ease;
+  }
+}
+
+@media (max-width: 720px) {
+  .wormhole-gateway {
+    min-height: 92vh;
+    padding: 4rem 1.5rem;
+  }
+
+  .wormhole-portal {
+    width: min(360px, 86vw);
+  }
+
+  .wormhole-content {
+    max-width: 32ch;
+    padding: 1.5rem;
+  }
+
+  .wormhole-small {
+    font-size: 0.46rem;
+    letter-spacing: 0.16em;
+  }
+
+  .wormhole-large {
+    font-size: clamp(1.15rem, 6.4vw, 1.7rem);
+  }
+
+  .back-to-top {
+    right: 0.85rem;
+    bottom: 0.85rem;
+    width: 46px;
+    height: 46px;
+  }
+
+  .back-to-top-tooltip {
+    right: 56px;
+    font-size: 0.68rem;
+  }
+}
+
+/* =========================================
+   Large-screen glow refinement
+   ========================================= */
+
+@media (min-width: 1600px) {
+  .territory-reading::before,
+  .territory-games::before,
+  .territory-learning::before,
+  .territory-making::before,
+  .territory-food::before {
+    width: min(640px, 38vw);
+    height: min(520px, 50vh);
+  }
+
+  .coordinates::before {
+    width: min(720px, 42vw);
+    height: min(560px, 50vh);
+  }
+}
+
+/* =========================================
+   Reduced motion
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .atlas-route-line {
+    animation: none;
+  }
+
+  .route-line,
+  .coordinates .route-line {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .ring-one,
+  .ring-two,
+  .ring-three,
+  .ring-four,
+  .ring-five {
+    animation: none;
+  }
+
+  .wormhole-portal {
+    transition: none;
+  }
+
+  .wormhole-portal:hover {
+    transform: none;
+  }
+
+  .back-to-top {
+    transition: none;
+  }
+
+  .back-to-top:hover {
+    transform: none;
+  }
+
+  .back-to-top-tooltip {
+    transition: none;
+  }
+
+  .previous-route,
+  .next-route {
+    transition: none;
+  }
+
+  .previous-route:hover,
+  .next-route:hover {
+    transform: none;
+  }
+}
